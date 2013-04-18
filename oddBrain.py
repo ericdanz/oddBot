@@ -54,12 +54,18 @@ while(e):
 			
 		print "Do Actions"
 		#do the action
-		#get the io from the action.actor
+		#get the component from the action.actorc
+		for i in xrange(len(mydevice.comps)):
+			if (mydevice.comps[i].compid == action.actorc):
+				compNum = i
+		aresponse = compconn.doaction(mydevice.comps[compNum], action)
+		'''
 		#this is a hack that works around having no actual components
 		for i in xrange(len(mydevice.comps)):
 			if (mydevice.comps[i].compid == action.actorc):
-				comp_id = i
+				compNum = i
 		mydevice.comps[comp_id].ios[action.actori] = compconn.doaction(mydevice.comps[comp_id].ios[action.actori],action)
+		'''
 	else:
 		print "no actions"
 	

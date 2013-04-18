@@ -40,9 +40,18 @@ def getastate(io):
 def getstates(adevice):
 	#ping the components and get the current state of their input/output
 	
-	return io.state
+	#break it down by components
 	
-def doaction(io, action):
-#tell the proper component to have the proper input do the action
-	io.state = action.content
-	return io
+	#break it down by the IOs
+	
+	
+	return adevice
+	
+def doaction(acomponent, action):
+	#tell the proper component (known by its port) to have the proper input do the action
+	
+	aserial = serial.Serial('/dev/tty/port{}'.format(acomponent.port),9600)
+	aserial.write('i/{}/{}'.format(action.actori,action.content))
+	actionresponse = aserial.readline()
+	
+	return actionresponse
