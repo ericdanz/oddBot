@@ -16,15 +16,11 @@ print "Config Response: ", hresponse
 
 print "Get States from Components"
 #get states of components
-for c in xrange(len(mydevice.comps)):
-	for i in xrange(len(mydevice.comps[c].ios)):
-		mydevice.comps[c].ios[i].state = compconn.getstates(mydevice.comps[c].ios[i])
+mydevice = compconn.getstates(mydevice)
 
 print "Push States"
 #push those states to server
-for c in xrange(len(mydevice.comps)):
-	for i in xrange(len(mydevice.comps[c].ios)):
-		hresponse = servconn.pushstates(i,mydevice.comps[c].ios[i].state,mydevice.comps[c].compid)
+hresponse = servconn.pushstates(mydevice)
 		
 
 
@@ -58,7 +54,8 @@ while(e):
 		for i in xrange(len(mydevice.comps)):
 			if (mydevice.comps[i].compid == action.actorc):
 				compNum = i
-		aresponse = compconn.doaction(mydevice.comps[compNum], action)
+		aresponse = compconn.doaction(mydevice.comps[compNum].port, action)
+		
 		'''
 		#this is a hack that works around having no actual components
 		for i in xrange(len(mydevice.comps)):
@@ -66,21 +63,18 @@ while(e):
 				compNum = i
 		mydevice.comps[comp_id].ios[action.actori] = compconn.doaction(mydevice.comps[comp_id].ios[action.actori],action)
 		'''
+		
 	else:
-		print "no actions"
+		print "No Actions"
 	
 	print "Get States from Components"
 	#get states of components
 	mydevice = compconn.getstates(mydevice)
-	
-	for c in xrange(len(mydevice.comps)):
-		for i in xrange(len(mydevice.comps[c].ios)):
-			mydevice.comps[c].ios[i].state = compconn.getstates(mydevice.comps[c].ios[i])
 
 	print "Push States"
 	#(do this even if the rest above failed)
 	#push those states to server
-	servconn.pushstates(mydevice)
+	hresponse = servconn.pushstates(mydevice)
 	
 
 
