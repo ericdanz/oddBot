@@ -55,6 +55,7 @@ while(e):
 			if (mydevice.comps[i].compid == action.actorc):
 				compNum = i
 		aresponse = compconn.doaction(mydevice.comps[compNum].port, action)
+		print aresponse.split('/')[2]
 		
 		'''
 		#this is a hack that works around having no actual components
