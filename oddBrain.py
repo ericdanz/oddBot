@@ -35,7 +35,7 @@ while(e):
 	
 	#this is a hack to aid debugging
 	counter +=1
-	if (counter > 3):
+	if (counter > 10):
 		e = 0
 	
 	print "Get Actions from Server"
