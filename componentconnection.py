@@ -11,10 +11,13 @@ def readunreliable(instring, port):
 		try:
 			if checkresponse[1]:
 				try:
-					print checkresponse.index(instring[0])
+					print checkresponse[0].index(instring[0])
 					serialworked = 1
 				except ValueError:
-					print "no thingy in stringy"
+					print "not the expected response"
+					respstring = ser1.readline()
+					respstring = ser1.readline()
+					respstring = ser1.readline()
 					serialworked = 0
 		except IndexError:
 			serialworked = 0
