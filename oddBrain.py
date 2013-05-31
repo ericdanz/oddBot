@@ -2,14 +2,19 @@ import urllib2, httplib
 import componentconnection as compconn
 import serverconnection as servconn
 import deviceclass
+import time 
 
 hresponse = ""
 
 mydevice = deviceclass.device()   
 mydevice.id = 10
+print "Starting"
 		   
 #boot
 mydevice = compconn.boot()
+
+print "Booted"
+
 #push config to server
 hresponse = servconn.pushconfig(mydevice)
 print "Config Response: ", hresponse
@@ -35,7 +40,7 @@ while(e):
 	
 	#this is a hack to aid debugging
 	counter +=1
-	if (counter > 10):
+	if (counter > 15):
 		e = 0
 	
 	print "Get Actions from Server"
@@ -76,6 +81,7 @@ while(e):
 	#(do this even if the rest above failed)
 	#push those states to server
 	hresponse = servconn.pushstates(mydevice)
+	time.sleep(1)
 	
 
 

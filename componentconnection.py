@@ -3,14 +3,21 @@ import deviceclass, serial, time
 
 def readunreliable(instring, port):
 	serialworked = 0
-	respstring = 'error'
-	while (serialworked):
+	while not(serialworked):
 		ser1 = serial.Serial(port, baudrate=9600, timeout=1)
-		ser1.write(inputstring)
+		ser1.write(instring)
 		respstring = ser1.readline()
 		checkresponse = respstring.split('/')
-		if checkresponse[1]:
-			serialworked = 1
+		try:
+			if checkresponse[1]:
+				try:
+					print checkresponse.index(instring[0])
+					serialworked = 1
+				except ValueError:
+					print "no thingy in stringy"
+					serialworked = 0
+		except IndexError:
+			serialworked = 0
 		time.sleep(1)
 	return respstring
 
