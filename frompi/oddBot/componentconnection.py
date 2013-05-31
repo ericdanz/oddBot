@@ -2,14 +2,14 @@ import deviceclass, serial, time
 
 
 def readunreliable(instring, port):
-	serialworked = false
+	serialworked = 0
 	while (serialworked):
 		ser1 = serial.Serial(port, baudrate=9600, timeout=1)
 		ser1.write(inputstring)
 		respstring = ser1.readline()
 		checkresponse = respstring.split('/')
 		if checkresponse[1]:
-			serialworked = true
+			serialworked = 1
 		time.sleep(1)
 	return respstring
 
