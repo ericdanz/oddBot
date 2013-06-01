@@ -11,10 +11,12 @@ def readunreliable(instring, port):
 		try:
 			if checkresponse[1]:
 				try:
-					print checkresponse[0].index(instring[0])
+					print "r index: {}".format(respstring.index('r'))
+					print "check index: {}".format(respstring.index(instring[0]))
 					serialworked = 1
 				except ValueError:
-					print "not the expected response"
+					print "not the expected response:"
+					print respstring
 					respstring = ser1.readline()
 					respstring = ser1.readline()
 					respstring = ser1.readline()
@@ -76,6 +78,7 @@ def getastate(port, i):
 	#state format is now s/inputnumber
 	#sser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 	#sser.write('s/{}x'.format(i))
+	print 'from io {}'.format(i)
 	stateresponse = readunreliable('s/{}x'.format(i), '/dev/ttyAMA0')
 	print stateresponse
 	res2 = stateresponse.split('rs')[1]
