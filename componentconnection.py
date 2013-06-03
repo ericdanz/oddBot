@@ -19,8 +19,12 @@ def readunreliable(instring, port):
 					print respstring
 					time.sleep(1)
 					respstring = ser1.readline()
+					print "clearing the serial buffer"
+					print respstring
 					respstring = ser1.readline()
+					print respstring
 					respstring = ser1.readline()
+					print respstring
 					serialworked = 0
 		except IndexError:
 			serialworked = 0
