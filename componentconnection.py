@@ -17,6 +17,7 @@ def readunreliable(instring, port):
 				except ValueError:
 					print "not the expected response:"
 					print respstring
+					time.sleep(1)
 					respstring = ser1.readline()
 					respstring = ser1.readline()
 					respstring = ser1.readline()
