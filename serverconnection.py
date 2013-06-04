@@ -38,7 +38,7 @@ def pushstates(adevice):
 	#push all states
 	for c in xrange(len(adevice.comps)):
 		for i in xrange(len(adevice.comps[c].ios)):
-			restring = servconn.pushastate(i,adevice.comps[c].ios[i].state,adevice.comps[c].compid)
+			restring = pushastate(i,adevice.comps[c].ios[i].state,adevice.comps[c].compid)
 	return restring
 	
 def pushconfig(adevice):
@@ -56,6 +56,14 @@ def pushconfig(adevice):
 	data = urllib.urlencode(params)
 	url = "{}?{}".format(url,data)
 	req = urllib2.Request(url)
-	response = urllib2.urlopen(req)
-	restring = response.read()
+	try:
+		response = urllib2.urlopen(req)
+		restring = response.read()
+	except urllib2.HTTPError, e:
+			#if e.code == 500:
+			#	response = urllib2.urlopen(req)
+			print e.code()
+			restring = 'error'
+			#print e.read()
+	
 	return restring
