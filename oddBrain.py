@@ -40,7 +40,7 @@ while(e):
 	
 	#this is a hack to aid debugging
 	counter +=1
-	if (counter > 15):
+	if (counter > 25):
 		e = 0
 	
 	print "Get Actions from Server"
@@ -82,7 +82,7 @@ while(e):
 	#push those states to server
 	hresponse = servconn.pushstates(mydevice)
 	print "States response: {}".format(hresponse)
-	time.sleep(1)
+	time.sleep(.2)
 	
 
 
