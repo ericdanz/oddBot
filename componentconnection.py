@@ -17,18 +17,18 @@ def readunreliable(instring, port):
 				except ValueError:
 					print "not the expected response:"
 					print respstring
-					time.sleep(1)
-					respstring = ser1.readline()
-					print "clearing the serial buffer"
-					print respstring
-					respstring = ser1.readline()
-					print respstring
-					respstring = ser1.readline()
-					print respstring
+					time.sleep(.2)
+					#respstring = ser1.readline()
+					#print "clearing the serial buffer"
+					#print respstring
+					#respstring = ser1.readline()
+					#print respstring
+					#respstring = ser1.readline()
+					#print respstring
 					serialworked = 0
 		except IndexError:
 			serialworked = 0
-		time.sleep(1)
+		time.sleep(.2)
 	return respstring
 
 def boot():

@@ -30,8 +30,11 @@ def confaction(action):
 def pushastate(io_id, io_state, component_id):
 	#push a single state
 	url = "http://www.oddbotics.com/ui/d/10/c/{}/i/{}/ns/{}".format(component_id,io_id,io_state)
-	req = urllib2.Request(url)
-	restring = urllib2.urlopen(req).read()
+	try:
+		req = urllib2.Request(url)
+		restring = urllib2.urlopen(req).read()
+	except urllib2.HTTPError, e:
+		restring = 'error'
 	return restring
 
 def pushstates(adevice):
@@ -62,7 +65,7 @@ def pushconfig(adevice):
 	except urllib2.HTTPError, e:
 			#if e.code == 500:
 			#	response = urllib2.urlopen(req)
-			print e.code()
+			#print e.code()
 			restring = 'error'
 			#print e.read()
 	

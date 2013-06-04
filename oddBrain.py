@@ -81,6 +81,7 @@ while(e):
 	#(do this even if the rest above failed)
 	#push those states to server
 	hresponse = servconn.pushstates(mydevice)
+	print "States response: {}".format(hresponse)
 	time.sleep(1)
 	
 
