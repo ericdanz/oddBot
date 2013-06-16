@@ -12,8 +12,8 @@ class component(object):
 		self.ios = []
 	def setcompnum(self, compno):
 		self.compid = compno
-	def setport(self, portno):
-		self.port = portno
+	def setport(self, portname):
+		self.port = portname
 	def addio(self, io):
 		self.ios.append(io)
 			

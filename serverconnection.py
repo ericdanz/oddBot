@@ -39,6 +39,8 @@ def pushastate(io_id, io_state, component_id):
 
 def pushstates(adevice):
 	#push all states
+	#declare a null restring in case there are no ios in components
+	restring = "no ios"
 	for c in xrange(len(adevice.comps)):
 		for i in xrange(len(adevice.comps[c].ios)):
 			restring = pushastate(i,adevice.comps[c].ios[i].state,adevice.comps[c].compid)
