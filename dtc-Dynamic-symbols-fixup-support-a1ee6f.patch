@@ -1,0 +1,93 @@
+--- dtc-Dynamic-symbols-fixup-support.patch	2013-06-17 01:55:31.429658299 +0800
++++ dtc-Dynamic-symbols-fixup-support-a1ee6f.patch	2013-06-17 01:55:01.566178163 +0800
+@@ -573,7 +573,7 @@
+ index a375683..30d9607 100644
+ --- a/dtc.c
+ +++ b/dtc.c
+-@@ -31,6 +31,7 @@ int reservenum;		/* Number of memory reservation slots */
++@@ -29,6 +29,7 @@ int reservenum;		/* Number of memory reservation slots */
+  int minsize;		/* Minimum blob size */
+  int padsize;		/* Additional padding to blob */
+  int phandle_format = PHANDLE_BOTH;	/* Use linux,phandle or phandle properties */
+@@ -581,25 +581,24 @@
+  
+  static void fill_fullpaths(struct node *tree, const char *prefix)
+  {
+-@@ -96,6 +97,8 @@ static void  __attribute__ ((noreturn)) usage(void)
+- 	fprintf(stderr, "\t-W [no-]<checkname>\n");
+- 	fprintf(stderr, "\t-E [no-]<checkname>\n");
+- 	fprintf(stderr, "\t\t\tenable or disable warnings and errors\n");
+-+	fprintf(stderr, "\t-@\n");
+-+	fprintf(stderr, "\t\tSymbols and Fixups support\n");
+- 	exit(3);
+- }
+- 
+-@@ -118,7 +121,7 @@ int main(int argc, char *argv[])
+- 	minsize    = 0;
+- 	padsize    = 0;
+- 
+--	while ((opt = getopt(argc, argv, "hI:O:o:V:d:R:S:p:fqb:i:vH:sW:E:"))
+-+	while ((opt = getopt(argc, argv, "hI:O:o:V:d:R:S:p:fqb:i:vH:sW:E:@"))
+- 			!= EOF) {
+- 		switch (opt) {
+- 		case 'I':
+-@@ -183,7 +186,9 @@ int main(int argc, char *argv[])
++@@ -49,7 +50,7 @@
++
++ /* Usage related data. */
++ static const char usage_synopsis[] = "dtc [options] <input file>";
++-static const char usage_short_opts[] = "qI:O:o:V:d:R:S:p:fb:i:H:sW:E:hv";
+++static const char usage_short_opts[] = "qI:O:o:V:d:R:S:p:fb:i:H:sW:E:@hv";
++ static struct option const usage_long_opts[] = {
++ 	{"quiet",            no_argument, NULL, 'q'},
++ 	{"in-format",         a_argument, NULL, 'I'},
++@@ -98,6 +99,7 @@ static void  __attribute__ ((noreturn)) usage(void)
++ 	"\n\tEnable/disable warnings (prefix with \"no-\")",
++ 	"\n\tEnable/disable errors (prefix with \"no-\")",
+++	"\n\tSymbols and Fixups support",
++ 	"\n\tPrint this help and exit",
++ 	"\n\tPrint version and exit",
++ 	NULL,
++ };
++@@ -184,8 +186,10 @@ int main(int argc, char *argv[])
+  		case 'E':
+  			parse_checks_option(false, true, optarg);
+  			break;
+@@ -608,8 +607,9 @@
+ +			symbol_fixup_support = 1;
+ +			break;
+  		case 'h':
++ 			usage(NULL);
+  		default:
+- 			usage();
++ 			usage("unknown option");
+ diff --git a/dtc.h b/dtc.h
+ index 3e42a07..0c8ecf6 100644
+ --- a/dtc.h
+@@ -622,7 +622,7 @@
+  
+  #define PHANDLE_LEGACY	0x1
+  #define PHANDLE_EPAPR	0x2
+-@@ -133,6 +134,25 @@ struct label {
++@@ -132,6 +133,25 @@ struct label {
+  	struct label *next;
+  };
+  
+@@ -648,7 +648,7 @@
+  struct property {
+  	int deleted;
+  	char *name;
+-@@ -159,6 +179,12 @@ struct node {
++@@ -158,6 +178,12 @@ struct node {
+  	int addr_cells, size_cells;
+  
+  	struct label *labels;
+@@ -661,7 +661,7 @@
+  };
+  
+  #define for_each_label_withdel(l0, l) \
+-@@ -182,6 +208,18 @@ struct node {
++@@ -181,6 +207,18 @@ struct node {
+  	for_each_child_withdel(n, c) \
+  		if (!(c)->deleted)
+  
