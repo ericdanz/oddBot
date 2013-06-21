@@ -127,7 +127,7 @@ def getastate(port, i):
 	#sser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 	#sser.write('s/{}x'.format(i))
 	print 'from io {}'.format(i)
-	stateresponse = readunreliable('s/{}x'.format(i), port)
+	stateresponse = readunreliable('s/{}x'.format(i), '/dev/ttyO{}'.format(port))
 	print stateresponse
 	res2 = stateresponse.split('rs')[1]
 	
