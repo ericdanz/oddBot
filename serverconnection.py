@@ -57,6 +57,8 @@ def pushconfig(adevice):
 		ix = 0
 		for i in c.ios:
 			params.update({"{}io{}classOf".format(cx,ix):i.classOf, "{}io{}typeOf".format(cx,ix):i.typeOf,"{}io{}lowerBound".format(cx,ix):i.lowerBound,"{}io{}upperBound".format(cx,ix):i.upperBound,"{}io{}granularity".format(cx,ix):i.granularity,"{}io{}isInput".format(cx,ix):i.isInput})
+			ix = ix + 1
+		cx = cx + 1
 		
 	data = urllib.urlencode(params)
 	url = "{}?{}".format(url,data)
