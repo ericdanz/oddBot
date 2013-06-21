@@ -67,6 +67,7 @@ def boot():
 			icomponent.setcompnum(int(parsestring[1]))
 			print parsestring[3]
 			for i in range(int(parsestring[3])):
+				print "Configuring IOs"
 				io = deviceclass.inout()
 				io.classOf = parsestring[4].split(',')[i]
 				io.typeOf = parsestring[5].split(',')[i]
@@ -78,7 +79,7 @@ def boot():
 				icomponent.addio(io)
 		else:
 			icomponent.setcompnum(0)
-		
+		print icomponent
 		idevice.addcomp(icomponent)
 	
 	'''

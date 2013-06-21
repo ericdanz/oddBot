@@ -60,6 +60,7 @@ def pushconfig(adevice):
 		
 	data = urllib.urlencode(params)
 	url = "{}?{}".format(url,data)
+	print "This is what I'm trying to upload: {}".format(url)
 	req = urllib2.Request(url)
 	try:
 		response = urllib2.urlopen(req)
