@@ -6,6 +6,7 @@ def readunreliable(instring, port):
 	#give it three chances, if there is no response then stop trying to talk to the port
 	chances = 3
 	print port
+	port = '/dev/ttyO{}'.format(port)
 	while not(serialworked):
 		ser1 = serial.Serial(port, baudrate=9600, timeout=2)
 		ser1.write(instring)
@@ -54,7 +55,7 @@ def boot():
 	port = ['1', '2', '4']
 	for x in xrange(len(port)):
 		#check each port with a boot command
-		bootresponse = readunreliable('bx',"/dev/ttyO{}".format(port[x]))
+		bootresponse = readunreliable('bx',port[x])
 		#each port gets a blank component
 		icomponent = deviceclass.component()
 		icomponent.setport(port[x])
@@ -127,7 +128,7 @@ def getastate(port, i):
 	#sser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 	#sser.write('s/{}x'.format(i))
 	print 'from io {}'.format(i)
-	stateresponse = readunreliable('s/{}x'.format(i), '/dev/ttyO{}'.format(port))
+	stateresponse = readunreliable('s/{}x'.format(i), port)
 	print stateresponse
 	res2 = stateresponse.split('rs')[1]
 	
@@ -152,6 +153,6 @@ def doaction(port, action):
 	
 	#aserial = serial.Serial('/dev/ttyAMA0',9600)
 	#aserial.write('i/{}/{}x'.format(action.actori,action.content))
-	actionresponse = readunreliable('i/{}/{}x'.format(action.actori,action.content), '/dev/ttyO{}'.format(port))
+	actionresponse = readunreliable('i/{}/{}x'.format(action.actori,action.content), port)
 	
 	return actionresponse
