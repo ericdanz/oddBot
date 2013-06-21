@@ -51,10 +51,10 @@ def boot():
 	#get back the ios
 	print "Checking what is connected"
 	#serial ports
-	port = ['/dev/ttyO1', '/dev/ttyO2', '/dev/ttyO4']
+	port = ['1', '2', '4']
 	for x in xrange(len(port)):
 		#check each port with a boot command
-		bootresponse = readunreliable('bx',port[x])
+		bootresponse = readunreliable('bx',"/dev/ttyO{}".format(port[x]))
 		#each port gets a blank component
 		icomponent = deviceclass.component()
 		icomponent.setport(port[x])
@@ -152,6 +152,6 @@ def doaction(port, action):
 	
 	#aserial = serial.Serial('/dev/ttyAMA0',9600)
 	#aserial.write('i/{}/{}x'.format(action.actori,action.content))
-	actionresponse = readunreliable('i/{}/{}x'.format(action.actori,action.content), '/dev/ttyO4')
+	actionresponse = readunreliable('i/{}/{}x'.format(action.actori,action.content), '/dev/ttyO{}'.format(port))
 	
 	return actionresponse
