@@ -2,8 +2,8 @@ import serial
 from serial import SEVENBITS, STOPBITS_ONE, PARITY_EVEN, EIGHTBITS, PARITY_NONE
 import time
 
-serialport = serial.Serial(port="/dev/ttyO4", baudrate=9600, bytesize=8, timeout=1)
-rply = serialport.read(400)
+serialport = serial.Serial(port="/dev/ttyO4", baudrate=9600, timeout=1)
+reply = serialport.read(400)
 serialport.write("bx")
 time.sleep(4)
 reply = serialport.read(90)
