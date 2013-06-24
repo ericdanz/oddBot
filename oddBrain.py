@@ -40,9 +40,19 @@ while(e):
 	
 	#this is a hack to aid debugging
 	counter +=1
-	if (counter > 25):
+	if (counter > 35):
 		e = 0
 	
+	#if its a tenth loop, check devices by booting
+	if not (counter%10):
+		print "Checking if same components are connected"
+		checkdevice = compconn.boot()
+		if not (checkdevice == mydevice):
+			mydevice = checkdevice
+			hresponse = servconn.pushconfig(mydevice)
+			print "Config Response: ", hresponse
+			
+			
 	print "Get Actions from Server"
 	#get action from server		   
 	action = servconn.getaction(mydevice.id)
