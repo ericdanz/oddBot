@@ -90,6 +90,7 @@ def boot(checkdevice):
 			for i in xrange(len(idevice.comps[c].ios)):
 				#if the devices have the same components with the same inputs
 				if (idevice.comps[c].ios[i].isInput == checkdevice.comps[c].ios[i].isInput) and (idevice.comps[c].ios[i].lowerBound == checkdevice.comps[c].ios[i].lowerBound) and (idevice.comps[c].ios[i].upperBound == checkdevice.comps[c].ios[i].upperBound) and (idevice.comps[c].ios[i].granularity == checkdevice.comps[c].ios[i].granularity) and (idevice.comps[c].ios[i].classOf == checkdevice.comps[c].ios[i].classOf) and (idevice.comps[c].ios[i].typeOf == checkdevice.comps[c].ios[i].typeOf) and (idevice.comps[c].compid == checkdevice.comps[c].compid) and (idevice.comps[c].port == checkdevice.comps[c].port):
+					print 'the boot was cancelled: both devices are the same'
 					return 'same'
 				
 	'''
