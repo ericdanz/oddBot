@@ -41,7 +41,7 @@ def readunreliable(instring, port):
 		#time.sleep(.2)
 	return respstring
 
-def boot():
+def boot(checkdevice):
 	#ping the components and find out what components are plugged in
 	#and what their inputs/outputs are
 	
@@ -80,9 +80,18 @@ def boot():
 				icomponent.addio(io)
 		else:
 			icomponent.setcompnum(0)
-		print icomponent
+		print icomponent.compid
 		idevice.addcomp(icomponent)
 	
+	
+	#Check that the devices are the same. If checkdevice is 0 this is the initial boot
+	if not (checkdevice == 0):
+		for c in xrange(len(idevice.comps)):
+			for i in xrange(len(idevice.comps[c].ios)):
+				#if the devices have the same components with the same inputs
+				if (idevice.comps[c].ios[i].isInput == checkdevice.comps[c].ios[i].isInput) and (idevice.comps[c].ios[i].lowerBound == checkdevice.comps[c].ios[i].lowerBound) and (idevice.comps[c].ios[i].upperBound == checkdevice.comps[c].ios[i].upperBound) and (idevice.comps[c].ios[i].granularity == checkdevice.comps[c].ios[i].granularity) and (idevice.comps[c].ios[i].classOf == checkdevice.comps[c].ios[i].classOf) and (idevice.comps[c].ios[i].typeOf == checkdevice.comps[c].ios[i].typeOf) and (idevice.comps[c].compid == checkdevice.comps[c].compid) and (idevice.comps[c].port == checkdevice.comps[c].port):
+					return 'same'
+				
 	'''
 	s1string = readunreliable('bx', '/dev/ttyO4')
 	#print s1string
@@ -117,6 +126,8 @@ def boot():
 		#	idevice.addcomp(component2)
 		#if(component3):
 		#	idevice.addcomp(component3)
+		
+		
 	return idevice
 
 	

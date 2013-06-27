@@ -11,7 +11,7 @@ mydevice.id = 10
 print "Starting"
 		   
 #boot
-mydevice = compconn.boot()
+mydevice = compconn.boot(0)
 
 print "Booted"
 
@@ -40,14 +40,14 @@ while(e):
 	
 	#this is a hack to aid debugging
 	counter +=1
-	if (counter > 35):
+	if (counter > 65):
 		e = 0
 	
 	#if its a tenth loop, check devices by booting
-	if not (counter%10):
+	if not (counter%20):
 		print "Checking if same components are connected"
-		checkdevice = compconn.boot()
-		if not (checkdevice == mydevice):
+		checkdevice = compconn.boot(mydevice)
+		if not (checkdevice == 'same'):
 			mydevice = checkdevice
 			hresponse = servconn.pushconfig(mydevice)
 			print "Config Response: ", hresponse
