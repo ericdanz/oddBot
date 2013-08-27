@@ -48,7 +48,8 @@ while(serial.inWaiting() > 0):
                 msb = serial.read()
                 lsb = serial.read()
                 print "Image file size: %d bytes" % (ord(msb) << 8 | ord(lsb))
-        else print "Not right response"
+        else: 
+		        print "Not right response"
 
 # Write image to file
 serial.write(b'\x56\x00\x32\x0C\x00\x0A\x00\x00\x00\x00\x00\x00%c%c\x00\x0A'
