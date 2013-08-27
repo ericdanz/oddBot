@@ -41,14 +41,14 @@ serial.write(b'\x56\x00\x34\x01\x00')
 resp = ""
 time.sleep(1)
 while(serial.inWaiting() > 0):
-		print "something came back"
+        print "something came back"
         data = serial.read()
         resp += data
         if b'\x76\x00\x34\x00\x04\x00\x00' in resp:
                 msb = serial.read()
                 lsb = serial.read()
                 print "Image file size: %d bytes" % (ord(msb) << 8 | ord(lsb))
-		else print "Not right response"
+        else print "Not right response"
 
 # Write image to file
 serial.write(b'\x56\x00\x32\x0C\x00\x0A\x00\x00\x00\x00\x00\x00%c%c\x00\x0A'
