@@ -16,6 +16,8 @@ class component(object):
 		self.port = portname
 	def addio(self, io):
 		self.ios.append(io)
+	def setclass(self, compclass):
+		self.classOf = compclass
 			
 #input/output
 class inout(object):
