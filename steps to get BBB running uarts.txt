@@ -28,4 +28,4 @@ cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
 put the echo statements in /etc/rc.local with sudo before it
 let rc.local run sudo without password
 
-Find a better way, shit ain't working.
+Find a better way, stuff ain't working.
