@@ -8,7 +8,8 @@ if len(service_matches) == 0:
 	print "No matches for insecure"
 else:
 	for match in service_matches:
-		print "{name} {port} {host}".format(*match)
+		print match
+		print "{0} {1} {2}".format(*match)
 
 		
 muuid = "fa87c0d0-afac-11de-8a39-0800200c9a66"
@@ -19,4 +20,5 @@ if len(service_matches) == 0:
 	sys.exit(0)
 	
 for match in service_matches:
-	print "{name} {port} {host}".format(*match)
+	print match
+	print "{0} {1} {2}".format(*match)
