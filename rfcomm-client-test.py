@@ -1,11 +1,14 @@
+import sys
 import bluetooth
 
-bd_addr = "68:94:23:A3:AD:36"
-port = 1
+muuid = "insecure"
+service_matches = bluetooth.find_service(uuid = muuid)
 
-sock = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-sock.connect((bd_addr, port))
+in len(service_matches) == 0:
+	print "No matches"
+	sys.exit(0)
+	
+for match in service_matches:
+	print "{name} {port} {host}".format(*match)
 
-sock.send("hello!!")
-
-sock.close()
+	
