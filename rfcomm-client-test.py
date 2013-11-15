@@ -14,7 +14,7 @@ for match in service_matches:
 muuid = "fa87c0d0-afac-11de-8a39-0800200c9a66"
 service_matches = bluetooth.find_service(uuid = muuid)
 
-in len(service_matches) == 0:
+if len(service_matches) == 0:
 	print "No matches for secure"
 	sys.exit(0)
 	
