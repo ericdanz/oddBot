@@ -4,7 +4,7 @@ import bluetooth
 muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 service_matches = bluetooth.find_service(uuid = muuid)
 
-in len(service_matches) == 0:
+if len(service_matches) == 0:
 	print "No matches for insecure"
 	sys.exit(0)
 	
