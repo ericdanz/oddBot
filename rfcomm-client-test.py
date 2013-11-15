@@ -9,7 +9,7 @@ if len(service_matches) == 0:
 else:
 	for match in service_matches:
 		print match
-		print "{0} {1} {2}".format(*match)
+		print "{'name'} {1} {2}".format(*match)
 
 		
 muuid = "fa87c0d0-afac-11de-8a39-0800200c9a66"
