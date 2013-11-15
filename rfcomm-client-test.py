@@ -11,6 +11,11 @@ else:
 	for match in service_matches:
 		print match
 		print "{name} {host} {port}".format(**match)
+		mhost = match['host']
+		mport = match['port']
 
 		
-sock = bluetooth.
+sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+sock.connect((mhost,mport))
+sock.send("hello!")
+sock.close()
