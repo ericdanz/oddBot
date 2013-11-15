@@ -6,11 +6,11 @@ service_matches = bluetooth.find_service(uuid = muuid)
 
 if len(service_matches) == 0:
 	print "No matches for insecure"
-	sys.exit(0)
-	
-for match in service_matches:
-	print "{name} {port} {host}".format(*match)
+else:
+	for match in service_matches:
+		print "{name} {port} {host}".format(*match)
 
+		
 muuid = "fa87c0d0-afac-11de-8a39-0800200c9a66"
 service_matches = bluetooth.find_service(uuid = muuid)
 
