@@ -18,4 +18,9 @@ else:
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 sock.connect((mhost,mport))
 sock.send("hello!")
+while(1):
+	mbuffer = sock.recv(1024)
+	print mbuffer
+	if mbuffer == 'exit':
+		sys.exit(0)
 sock.close()
