@@ -10,6 +10,7 @@ sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 hresponse = ""
 
 fakecomp = deviceclass.component()
+fakecomp.setclass("Locomotion)
 fakeio = deviceclass.inout()
 fakecomp.addio(fakeio)
 
