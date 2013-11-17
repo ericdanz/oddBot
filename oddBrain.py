@@ -11,7 +11,7 @@ blueconn.findservice(muuid,sock)
 hresponse = ""
 
 fakecomp = deviceclass.component()
-fakecomp.setclass("Locomotion)
+fakecomp.setclass("Locomotion")
 fakeio = deviceclass.inout()
 fakecomp.addio(fakeio)
 
