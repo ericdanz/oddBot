@@ -1,10 +1,18 @@
 import urllib2, httplib
+import bluetooth
 import componentconnection as compconn
-import serverconnection as servconn
+import blueconnection as blueconn
 import deviceclass
 import time 
 
+muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
+sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 hresponse = ""
+
+fakecomp = deviceclass.component()
+fakeio = deviceclass.inout()
+fakecomp.addio(fakeio)
+
 
 mydevice = deviceclass.device()   
 mydevice.id = 10
@@ -12,12 +20,16 @@ print "Starting"
 		   
 #boot
 mydevice = compconn.boot(0)
+mydevice.addcomp(fakecomp)
 
 print "Booted"
 
 #push config to server
-hresponse = servconn.pushconfig(mydevice)
-print "Config Response: ", hresponse
+hresponse = blueconn.pushconfig(mydevice, sock)
+if hresponse:
+	print "Config Sent"
+else:
+	print "Error"
 
 print "Get States from Components"
 #get states of components
@@ -25,23 +37,23 @@ mydevice = compconn.getstates(mydevice)
 
 print "Push States"
 #push those states to server
-hresponse = servconn.pushstates(mydevice)
+hresponse = blueconn.pushstates(mydevice)
 		
 
 
 #LOOP THIS PART
-e = 1
+boo = 1
 counter = 0
 print "starting loop"
 
-while(e):
+while(boo):
 	#if at any point there is an error
-	#set e = 0
+	#set boo = 0
 	
 	#this is a hack to aid debugging
 	counter +=1
 	if (counter > 65):
-		e = 0
+		boo = 0
 	
 	#if its a tenth loop, check devices by booting
 	if not (counter%20):
@@ -49,19 +61,15 @@ while(e):
 		checkdevice = compconn.boot(mydevice)
 		if not (checkdevice == 'same'):
 			mydevice = checkdevice
-			hresponse = servconn.pushconfig(mydevice)
+			hresponse = blueconn.pushconfig(mydevice)
 			print "Config Response: ", hresponse
 			
 			
 	print "Get Actions from Server"
 	#get action from server		   
-	action = servconn.getaction(mydevice.id)
+	action = blueconn.listen(sock)
 	if (action):
 		print "Action: ",action.content
-	
-	
-		#confirm you recieved action
-		hresponse = servconn.confaction(action)
 			
 		print "Do Actions"
 		#do the action
@@ -90,9 +98,9 @@ while(e):
 	print "Push States"
 	#(do this even if the rest above failed)
 	#push those states to server
-	hresponse = servconn.pushstates(mydevice)
+	hresponse = blueconn.pushstates(mydevice)
 	print "States response: {}".format(hresponse)
-	time.sleep(.2)
+	time.sleep(.1)
 	
 
 
