@@ -7,6 +7,7 @@ import time
 
 muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+blueconn.findservice(muuid,sock)
 hresponse = ""
 
 fakecomp = deviceclass.component()
