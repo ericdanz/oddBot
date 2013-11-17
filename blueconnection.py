@@ -75,7 +75,7 @@ def pushstates(adevice, sock):
 			#check if it is an image and send the image not the reference
 			#NOT YET ACTIVE
 			restring = send(sock, datastring)
-			if !restring:
+			if not restring:
 				return restring
 	return restring
 
