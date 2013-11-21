@@ -49,7 +49,7 @@ def pushconfig(adevice, sock):
 def send(sock, data):
 	try:
 		sock.send(data)
-	except e:
+	except bluetooth.btcommon.BluetoothError as error:
 		return 0
 	
 	return 1
