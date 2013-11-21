@@ -73,13 +73,13 @@ def boot(checkdevice):
 			for i in range(int(parsestring[3])):
 				print "Configuring IOs"
 				io = deviceclass.inout()
-				io.classOf = parsestring[6].split(',')[i]
-				io.typeOf = parsestring[7].split(',')[i]
-				io.isInput = parsestring[8].split(',')[i]
-				io.lowerBound = parsestring[9].split(',')[i]
-				io.upperBound = parsestring[10].split(',')[i]
-				io.granularity = parsestring[11].split(',')[i]
-				io.state = parsestring[9].split(',')[i]
+				io.classOf = parsestring[4].split(',')[i]
+				io.typeOf = parsestring[5].split(',')[i]
+				io.isInput = parsestring[6].split(',')[i]
+				io.lowerBound = parsestring[7].split(',')[i]
+				io.upperBound = parsestring[8].split(',')[i]
+				io.granularity = parsestring[9].split(',')[i]
+				io.state = 0
 				icomponent.addio(io)
 		else:
 			icomponent.setcompnum(0)
