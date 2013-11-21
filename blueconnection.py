@@ -26,13 +26,13 @@ def pushconfig(adevice, sock):
 	hasCamera = 0;
 	
 	for c in adevice.comps:
-		print c.port
-		if c.classOf == 'locomotion':
-			hasLocomotion = 1;
-		elif c.classOf == 'Interaction':
-			hasInteraction = 1;
-		elif c.classOf == 'Camera':
-			hasCamera = 1;
+		if (c.classOf):
+			if c.classOf == 'locomotion':
+				hasLocomotion = 1;
+			elif c.classOf == 'Interaction':
+				hasInteraction = 1;
+			elif c.classOf == 'Camera':
+				hasCamera = 1;
 	
 	outString = "CONF L{} I{} C{}".format(hasLocomotion,hasInteraction,hasCamera)
 	try:
