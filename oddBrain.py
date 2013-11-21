@@ -21,7 +21,7 @@ mydevice.id = 10
 print "Starting"
 		   
 #boot
-#mydevice = compconn.boot(0)
+mydevice = compconn.boot(0)
 #mydevice.addcomp(fakecomp)
 
 print "Booted"
