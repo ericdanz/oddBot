@@ -69,8 +69,8 @@ def boot(checkdevice):
 			print parsestring[4].split(',')[0]
 			icomponent.setclass(parsestring[4].split(',')[0])
 			
-			print parsestring[5]
-			for i in range(int(parsestring[5])):
+			print parsestring[3]
+			for i in range(int(parsestring[3])):
 				print "Configuring IOs"
 				io = deviceclass.inout()
 				io.classOf = parsestring[6].split(',')[i]
