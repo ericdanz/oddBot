@@ -39,7 +39,7 @@ mydevice = compconn.getstates(mydevice)
 
 print "Push States"
 #push those states to server
-hresponse = blueconn.pushstates(mydevice)
+hresponse = blueconn.pushstates(mydevice, sock)
 		
 
 
@@ -63,7 +63,7 @@ while(boo):
 		checkdevice = compconn.boot(mydevice)
 		if not (checkdevice == 'same'):
 			mydevice = checkdevice
-			hresponse = blueconn.pushconfig(mydevice)
+			hresponse = blueconn.pushconfig(mydevice, sock)
 			print "Config Response: ", hresponse
 			
 			
@@ -100,7 +100,7 @@ while(boo):
 	print "Push States"
 	#(do this even if the rest above failed)
 	#push those states to server
-	hresponse = blueconn.pushstates(mydevice)
+	hresponse = blueconn.pushstates(mydevice, sock)
 	print "States response: {}".format(hresponse)
 	time.sleep(.1)
 	
