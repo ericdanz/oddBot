@@ -36,7 +36,7 @@ def pushconfig(adevice, sock):
 	outString = "CONF L{} I{} C{}".format(hasLocomotion,hasInteraction,hasCamera)
 	try:
 		sock.send(outString)
-	except e:
+	except bluetooth.btcommon.BluetoothError as error:
 		return 0
 	
 	return 1
