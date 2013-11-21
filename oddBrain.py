@@ -10,10 +10,10 @@ sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 blueconn.findservice(muuid,sock)
 hresponse = ""
 
-fakecomp = deviceclass.component()
-fakecomp.setclass("Locomotion")
-fakeio = deviceclass.inout()
-fakecomp.addio(fakeio)
+#fakecomp = deviceclass.component()
+#fakecomp.setclass("Locomotion")
+#fakeio = deviceclass.inout()
+#fakecomp.addio(fakeio)
 
 
 mydevice = deviceclass.device()   
@@ -22,7 +22,7 @@ print "Starting"
 		   
 #boot
 #mydevice = compconn.boot(0)
-mydevice.addcomp(fakecomp)
+#mydevice.addcomp(fakecomp)
 
 print "Booted"
 
