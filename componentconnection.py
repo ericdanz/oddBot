@@ -59,6 +59,7 @@ def boot(checkdevice):
 		#each port gets a blank component
 		icomponent = deviceclass.component()
 		icomponent.setport(port[x])
+		icomponent.setclass("0")
 		
 		if bootresponse!='noresp':
 			print 'Rebuilding my internal model for port {}'.format(port[x])
