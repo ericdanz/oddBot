@@ -26,7 +26,7 @@ def pushconfig(adevice, sock):
 	hasCamera = 0;
 	
 	for c in adevice.comps:
-		if c.classOf == 'Locomotion':
+		if c.classOf == 'locomotion':
 			hasLocomotion = 1;
 		elif c.classOf == 'Interaction':
 			hasInteraction = 1;
