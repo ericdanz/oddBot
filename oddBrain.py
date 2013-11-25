@@ -31,11 +31,15 @@ hresponse = blueconn.pushconfig(mydevice, sock)
 if hresponse:
 	print "Config Sent"
 else:
-	print "Error"
+	print "Error sending config"
 
 print "Get States from Components"
 #get states of components
-mydevice = compconn.getstates(mydevice)
+hresponse = compconn.getstates(mydevice)
+if hresponse:
+	print "Get-state processes started
+else:
+	print "Error with getstates"
 
 print "Push States"
 #push those states to server
@@ -66,20 +70,17 @@ while(boo):
 			hresponse = blueconn.pushconfig(mydevice, sock)
 			print "Config Response: ", hresponse
 			
-			
+		
 	print "Get Actions from Server"
 	#get action from server		   
-	action = blueconn.listen(sock)
-	if (action):
-		print "Action: ",action.content
-			
+	rawdata = blueconn.listen(sock)
+	if (rawdata):
+		print "Raw Data: {}".format(rawdata)
+		rawdata = rawdata.split('/')
 		print "Do Actions"
 		#do the action
 		#get the component from the action.actorc
-		for i in xrange(len(mydevice.comps)):
-			if (mydevice.comps[i].compid == action.actorc):
-				compNum = i
-		aresponse = compconn.doaction(mydevice.comps[compNum].port, action)
+		aresponse = compconn.doaction(rawdata)
 		print aresponse.split('/')[2]
 		
 		'''
@@ -89,20 +90,25 @@ while(boo):
 				compNum = i
 		mydevice.comps[comp_id].ios[action.actori] = compconn.doaction(mydevice.comps[comp_id].ios[action.actori],action)
 		'''
-		
+	
 	else:
 		print "No Actions"
 	
-	print "Get States from Components"
+	
+	
+	
+	#no longer needed because of multiprocess
+	
+	#print "Get States from Components"
 	#get states of components
-	mydevice = compconn.getstates(mydevice)
+	#mydevice = compconn.getstates(mydevice)
 
 	print "Push States"
 	#(do this even if the rest above failed)
 	#push those states to server
 	hresponse = blueconn.pushstates(mydevice, sock)
 	print "States response: {}".format(hresponse)
-	time.sleep(.1)
+	time.sleep(1)
 	
 
 

@@ -1,6 +1,5 @@
 import deviceclass, serial, time, threading
-from multiprocessing import Pool
-
+import multiprocessing
 
 def readunreliable(instring, port):
 	serialworked = 0
@@ -122,7 +121,7 @@ def boot(checkdevice):
 	"""
 	#USE POOL
 	port = ['1', '2', '4']
-	pool = Pool(processes=xrange(len(port)))
+	pool = multiprocessing.Pool(processes=xrange(len(port)))
 	result = []
 	for x in xrange(len(port)):
 		#call process portboot for port[x]
@@ -131,7 +130,7 @@ def boot(checkdevice):
 		#t.start()
 	
 	#could add the components via result[x].get() if passing through doesn't work
-	
+	time.sleep(1)
 	
 	#Check that the devices are the same. If checkdevice is 0 this is the initial boot
 	if not (checkdevice == 0):
@@ -186,37 +185,55 @@ def boot(checkdevice):
 	
 	
 
-def getastate(port, i):
+def getastate(port, i, io):
 	#get a single IO's state
 	#state format is now s/inputnumber
 	#sser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 	#sser.write('s/{}x'.format(i))
-	print 'from io {}'.format(i)
-	stateresponse = readunreliable('s/{}x'.format(i), port)
-	print stateresponse
-	res2 = stateresponse.split('rs')[1]
-	
-	print res2.split('/')[1]
-	#might have to parse state response to pull out the new state
-	return res2.split('/')[1]
-	
+	while (1):
+		print 'from io {}'.format(i)
+		stateresponse = readunreliable('s/{}x'.format(i), port)
+		print stateresponse
+		res2 = stateresponse.split('rs')[1]
+		
+		print res2.split('/')[1]
+		#might have to parse state response to pull out the new state
+		#return res2.split('/')[1]
+		
+		#put the state right into the component - through a function 
+		#that doesn't pass through automatically
+		#putstate(port, i, res2.split('/')[1])
+		
+		#pass it through directly
+		io.state = res2.split('/')[1]
+		time.sleep(1)
+
+		
 
 def getstates(adevice):
 	#ping the components and get the current state of their input/output
 	
 	#break it down by components, then by IOs
+	'''
 	xio = 0
 	for c in xrange(len(adevice.comps)):
 		for i in xrange(len(adevice.comps[c].ios)):
 			adevice.comps[c].ios[i].state = getastate(adevice.comps[c].port, i)
+	'''
+	#multiproc style - learn how to kill processes
+	xio = 0
+	for c in xrange(len(adevice.comps)):
+		for i in xrange(len(adevice.comps[c].ios)):
+			p = multiprocessing.Process(target=getastate,args=(adevice.comps[c].port,i))
+			p.start()
+	return 1
 	
-	return adevice
-	
-def doaction(port, action):
+def doaction(rawdata):
 	#tell the proper component (known by its port) to have the proper input do the action
 	
 	#aserial = serial.Serial('/dev/ttyAMA0',9600)
 	#aserial.write('i/{}/{}x'.format(action.actori,action.content))
-	actionresponse = readunreliable('i/{}/{}x'.format(action.actori,action.content), port)
+	
+	actionresponse = readunreliable('i/{}/{}x'.format(rawdata[3],rawdata[4]), rawdata[1])
 	
 	return actionresponse
