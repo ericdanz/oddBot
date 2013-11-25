@@ -108,7 +108,7 @@ while(boo):
 	#push those states to server
 	hresponse = blueconn.pushstates(mydevice, sock)
 	print "States response: {}".format(hresponse)
-	time.sleep(1)
+	time.sleep(.1)
 	
 
 
