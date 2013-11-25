@@ -9,7 +9,7 @@ muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 blueconn.findservice(muuid,sock)
 hresponse = ""
-
+time.sleep(5)
 #fakecomp = deviceclass.component()
 #fakecomp.setclass("Locomotion")
 #fakeio = deviceclass.inout()
