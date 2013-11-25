@@ -67,9 +67,9 @@ def portboot(port, idevice):
 				io.granularity = parsestring[9].split(',')[i]
 				io.state = 0
 				icomponent.addio(io)
-		else:
-			icomponent.setcompnum(0)
-		print icomponent.compid
+	else:
+		icomponent.setcompnum(0)
+	print icomponent.compid
 	idevice.addcomp(icomponent)
 	
 def boot(checkdevice):
