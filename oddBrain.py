@@ -9,7 +9,7 @@ muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 blueconn.findservice(muuid,sock)
 hresponse = ""
-time.sleep(5)
+time.sleep(3)
 #fakecomp = deviceclass.component()
 #fakecomp.setclass("Locomotion")
 #fakeio = deviceclass.inout()
@@ -25,7 +25,7 @@ mydevice = compconn.boot(0)
 #mydevice.addcomp(fakecomp)
 
 print "Booted"
-
+time.sleep(2)
 #push config to server
 hresponse = blueconn.pushconfig(mydevice, sock)
 if hresponse:
