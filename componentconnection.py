@@ -122,9 +122,10 @@ def boot(checkdevice):
 	#USE POOL
 	port = ['1', '2', '4']
 	pool = multiprocessing.Pool(processes=int(len(port)))
+	result = []
 	for x in xrange(len(port)):
 		#call process portboot for port[x]
-		result[x] = pool.apply_async(portboot, (port[x], idevice))
+		result.append(pool.apply_async(portboot, (port[x], idevice)))
 		#t = threading.Thread(target=portboot, args=(port[x], idevice))
 		#t.start()
 	
