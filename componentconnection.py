@@ -121,7 +121,7 @@ def boot(checkdevice):
 	"""
 	#USE POOL
 	port = ['1', '2', '4']
-	pool = multiprocessing.Pool(processes=xrange(len(port)))
+	pool = multiprocessing.Pool(processes=int(len(port)))
 	result = []
 	for x in xrange(len(port)):
 		#call process portboot for port[x]
