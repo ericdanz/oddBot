@@ -1,4 +1,5 @@
-import deviceclass, serial, time
+import deviceclass, serial, time, threading
+from multiprocessing import Pool
 
 
 def readunreliable(instring, port):
@@ -41,6 +42,37 @@ def readunreliable(instring, port):
 		#time.sleep(.2)
 	return respstring
 
+def portboot(port, idevice):
+	icomponent = deviceclass.component()
+	icomponent.setport(port)
+	icomponent.setclass("0")
+	bootresponse = readunreliable('bx',port)
+	if bootresponse!='noresp':
+			print 'Rebuilding my internal model for port {}'.format(port[x])
+			#if the port has an IO, put that into the correct component
+			parsestring = bootresponse.split('/')
+			print parsestring[1]
+			icomponent.setcompnum(int(parsestring[1]))
+			print parsestring[4].split(',')[0]
+			icomponent.setclass(parsestring[4].split(',')[0])
+			
+			print parsestring[3]
+			for i in range(int(parsestring[3])):
+				print "Configuring IOs"
+				io = deviceclass.inout()
+				io.classOf = parsestring[4].split(',')[i]
+				io.typeOf = parsestring[5].split(',')[i]
+				io.isInput = parsestring[6].split(',')[i]
+				io.lowerBound = parsestring[7].split(',')[i]
+				io.upperBound = parsestring[8].split(',')[i]
+				io.granularity = parsestring[9].split(',')[i]
+				io.state = 0
+				icomponent.addio(io)
+		else:
+			icomponent.setcompnum(0)
+		print icomponent.compid
+	idevice.addcomp(icomponent)
+	
 def boot(checkdevice):
 	#ping the components and find out what components are plugged in
 	#and what their inputs/outputs are
@@ -52,6 +84,7 @@ def boot(checkdevice):
 	#get back the ios
 	print "Checking what is connected"
 	#serial ports
+	"""
 	port = ['1', '2', '4']
 	for x in xrange(len(port)):
 		#check each port with a boot command
@@ -86,6 +119,18 @@ def boot(checkdevice):
 			icomponent.setcompnum(0)
 		print icomponent.compid
 		idevice.addcomp(icomponent)
+	"""
+	#USE POOL
+	port = ['1', '2', '4']
+	pool = Pool(processes=xrange(len(port)))
+	result = []
+	for x in xrange(len(port)):
+		#call process portboot for port[x]
+		result[x] = pool.apply_async(portboot, (port[x], idevice))
+		#t = threading.Thread(target=portboot, args=(port[x], idevice))
+		#t.start()
+	
+	#could add the components via result[x].get() if passing through doesn't work
 	
 	
 	#Check that the devices are the same. If checkdevice is 0 this is the initial boot
