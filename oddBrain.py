@@ -37,7 +37,7 @@ print "Get States from Components"
 #get states of components
 hresponse = compconn.getstates(mydevice)
 if hresponse:
-	print "Get-state processes started
+	print "Get-state processes started"
 else:
 	print "Error with getstates"
 
