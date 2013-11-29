@@ -13,7 +13,7 @@ hresponse = ""
 notconnected = 1
 while(notconnected):
 	try:
-		socket.getpeername(self)
+		sock.getpeername(self)
 		notconnected = 0
 	except Exception:
 		notconnected = 1
