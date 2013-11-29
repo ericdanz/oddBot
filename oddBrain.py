@@ -39,7 +39,7 @@ notconnected = 1
 while(notconnected):
 	try:
 		sock.getpeername()
-		#print sock.getpeername()
+		print sock.getpeername()
 		notconnected = 0
 	except IOError:
 		notconnected = 1
