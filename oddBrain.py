@@ -32,7 +32,20 @@ mydevice = compconn.boot(0)
 #mydevice.addcomp(fakecomp)
 
 print "Booted"
-time.sleep(3)
+
+#wait until sock is connected
+print "Checking connection"
+notconnected = 1
+while(notconnected):
+	try:
+		sock.getpeername()
+		#print sock.getpeername()
+		notconnected = 0
+	except IOError:
+		notconnected = 1
+		
+print "sleeping before pushing configuration"
+time.sleep(1)
 #push config to server
 hresponse = blueconn.pushconfig(mydevice, sock)
 if hresponse:
