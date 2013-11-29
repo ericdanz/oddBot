@@ -15,7 +15,7 @@ while(notconnected):
 	try:
 		socket.getpeername(self)
 		notconnected = 0
-	except socket_error:
+	except Exception:
 		notconnected = 1
 		
 
