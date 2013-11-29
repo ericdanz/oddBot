@@ -13,8 +13,8 @@ hresponse = ""
 notconnected = 1
 while(notconnected):
 	try:
-		sock.getpeername(self)
-		print sock.getpeername(self)
+		sock.getpeername()
+		print sock.getpeername()
 		notconnected = 0
 	except IOError:
 		notconnected = 1
