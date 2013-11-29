@@ -14,8 +14,9 @@ notconnected = 1
 while(notconnected):
 	try:
 		sock.getpeername(self)
+		print sock.getpeername(self)
 		notconnected = 0
-	except Exception:
+	except IOError:
 		notconnected = 1
 		
 
