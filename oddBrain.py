@@ -38,9 +38,9 @@ print "Checking connection"
 notconnected = 1
 while(notconnected):
 	try:
-		print sock.getpeername()[1]
 		if sock.getpeername()[1] == 0:
 			notconnected = 1
+			time.sleep(.5)
 		else:
 			notconnected = 0
 	except IOError:
