@@ -1,5 +1,6 @@
 import bluetooth
 import deviceclass
+import time
 
 #sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 #find a bluetooth device on the correct service
@@ -70,14 +71,15 @@ def pushstates(adevice, sock):
 	#push all states
 	#declare a null restring in case there are no ios in components
 	restring = "no ios"
-	for c in xrange(len(adevice.comps)):
-		for i in xrange(len(adevice.comps[c].ios)):
-			datastring = "{}/{}/{}".format(i,adevice.comps[c].ios[i].state,adevice.comps[c].compid)
-			#check if it is an image and send the image not the reference
-			#NOT YET ACTIVE
-			restring = send(sock, datastring)
-			if not restring:
-				return restring
+	while (1):
+		for c in xrange(len(adevice.comps)):
+			for i in xrange(len(adevice.comps[c].ios)):
+				datastring = "{}/{}/{}".format(i,adevice.comps[c].ios[i].state,adevice.comps[c].compid)
+				#check if it is an image and send the image not the reference
+				#NOT YET ACTIVE
+				restring = send(sock, datastring)
+				
+		time.sleep(1)		
 	return restring
 
 	

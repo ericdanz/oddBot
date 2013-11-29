@@ -231,9 +231,6 @@ def getstates(adevice):
 def doaction(rawdata):
 	#tell the proper component (known by its port) to have the proper input do the action
 	
-	#aserial = serial.Serial('/dev/ttyAMA0',9600)
-	#aserial.write('i/{}/{}x'.format(action.actori,action.content))
-	
 	actionresponse = readunreliable('i/{}/{}x'.format(rawdata[3],rawdata[4]), rawdata[1])
 	
 	return actionresponse

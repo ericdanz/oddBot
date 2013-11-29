@@ -9,12 +9,18 @@ muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 blueconn.findservice(muuid,sock)
 hresponse = ""
-time.sleep(3)
-#fakecomp = deviceclass.component()
-#fakecomp.setclass("Locomotion")
-#fakeio = deviceclass.inout()
-#fakecomp.addio(fakeio)
+#wait until sock is connected
+notconnected = 1
+while(notconnected):
+	try:
+		socket.getpeername(self)
+		notconnected = 0
+	except socket_error:
+		notconnected = 1
+		
 
+
+#time.sleep(2)
 
 mydevice = deviceclass.device()   
 mydevice.id = 10
@@ -25,7 +31,7 @@ mydevice = compconn.boot(0)
 #mydevice.addcomp(fakecomp)
 
 print "Booted"
-time.sleep(2)
+time.sleep(3)
 #push config to server
 hresponse = blueconn.pushconfig(mydevice, sock)
 if hresponse:
@@ -43,9 +49,10 @@ else:
 
 print "Push States"
 #push those states to server
-hresponse = blueconn.pushstates(mydevice, sock)
+#use a new process
+p = multiprocessing.Process(target=blueconn.pushstates,args=(mydevice, sock))
+p.start()
 		
-
 
 #LOOP THIS PART
 boo = 1
@@ -76,6 +83,7 @@ while(boo):
 	rawdata = blueconn.listen(sock)
 	if (rawdata):
 		print "Raw Data: {}".format(rawdata)
+		rawdata.replace(" ","")
 		rawdata = rawdata.split('/')
 		print "Do Actions"
 		#do the action
