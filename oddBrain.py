@@ -3,7 +3,7 @@ import bluetooth
 import componentconnection as compconn
 import blueconnection as blueconn
 import deviceclass
-import time 
+import time, multiprocessing
 
 muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
@@ -14,7 +14,7 @@ notconnected = 1
 while(notconnected):
 	try:
 		sock.getpeername()
-		print sock.getpeername()
+		#print sock.getpeername()
 		notconnected = 0
 	except IOError:
 		notconnected = 1
