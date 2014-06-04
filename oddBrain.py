@@ -84,7 +84,7 @@ while(boo):
 	if (counter > 65):
 		boo = 0
 	
-	#if its a tenth loop, check devices by booting
+	#if its a twentieth loop, check devices by booting
 	if not (counter%20):
 		print "Checking if same components are connected"
 		checkdevice = compconn.boot(mydevice)
