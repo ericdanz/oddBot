@@ -22,7 +22,7 @@ while (boo):
 		print "Raw Data: {}".format(rawdata)
 	if (rawdata == 'end'):
 		boo = 0
-
+'''
 nearby_devices = bluetooth.discover_devices()
 
 for bdaddr in nearby_devices:
@@ -30,3 +30,4 @@ for bdaddr in nearby_devices:
 	print bluetooth.lookup_name(bdaddr)
 	print "Address: "
 	print bdaddr
+'''

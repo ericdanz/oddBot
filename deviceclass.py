@@ -1,4 +1,4 @@
-#devices have device IDs and components
+ff#devices have device IDs and components
 class device(object):
 	def __init__(self):
 		self.comps = []
