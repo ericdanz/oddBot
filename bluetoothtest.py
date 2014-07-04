@@ -20,7 +20,7 @@ while (boo):
 	rawdata = blueconn.listen(sock)
 	if (rawdata):
 		print "Raw Data: {}".format(rawdata)
-	if (rawdata == 'end')
+	if (rawdata == 'end'):
 		boo = 0
 
 nearby_devices = bluetooth.discover_devices()
