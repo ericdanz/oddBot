@@ -15,10 +15,13 @@ while(notconnected):
 			notconnected = 0
 	except IOError:
 		notconnected = 1
-
-rawdata = blueconn.listen(sock)
-if (rawdata):
-	print "Raw Data: {}".format(rawdata)
+boo = 1
+while (boo):
+	rawdata = blueconn.listen(sock)
+	if (rawdata):
+		print "Raw Data: {}".format(rawdata)
+	if (rawdata == 'end')
+		boo = 0
 
 nearby_devices = bluetooth.discover_devices()
 
