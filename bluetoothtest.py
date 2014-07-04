@@ -1,4 +1,24 @@
 import bluetooth
+import blueconnection as blueconn
+
+
+muuid = "8ce255c0-200a-11e0-ac64-0800200c9a66"
+sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+blueconn.findservice(muuid,sock)
+notconnected = 1
+while(notconnected):
+	try:
+		if sock.getpeername()[1] == 0:
+			notconnected = 1
+			time.sleep(.5)
+		else:
+			notconnected = 0
+	except IOError:
+		notconnected = 1
+
+rawdata = blueconn.listen(sock)
+if (rawdata):
+	print "Raw Data: {}".format(rawdata)
 
 nearby_devices = bluetooth.discover_devices()
 
