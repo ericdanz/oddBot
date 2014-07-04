@@ -1,4 +1,4 @@
-import bluetooth
+import bluetooth, time
 import blueconnection as blueconn
 
 
